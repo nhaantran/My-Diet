@@ -96,8 +96,8 @@ class ExercisePage extends GetView<ExerciseController> {
                       trailing: Wrap(children: [
                         IconButton(
                             onPressed: () {
-                              controller
-                                  .logExercise(controller.exerciseList[index]);
+                              controller.logExercise(
+                                  controller.exerciseList[index * 5]);
                             },
                             icon: const Icon(Icons.add_box_outlined,
                                 color: AppColors.brand05))

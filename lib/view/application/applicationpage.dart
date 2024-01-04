@@ -30,7 +30,6 @@ class ApplicationPage extends GetView<ApplicationController> {
         //   child: Text("4"),
         // ),
         ContactPage(),
-        //ChatbotPage(),
         ProfilePage(),
       ],
     );
@@ -128,19 +127,20 @@ class ApplicationPage extends GetView<ApplicationController> {
                         IconButton(
                             iconSize: 48.0,
                             onPressed: () async {
-                              var res = await Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        const SimpleBarcodeScannerPage(),
-                                  ));
-                              if (res is String) {
-                                await controller.getBarCode(res);
-                                if (!controller.isProductFounded.value) {
-                                  toastInfo(
-                                      msg: "Sorry, we can't find the product!");
-                                }
-                              }
+                              await controller.getBarCode('9400563448638');
+                              // var res = await Navigator.push(
+                              //     context,
+                              //     MaterialPageRoute(
+                              //       builder: (context) =>
+                              //           const SimpleBarcodeScannerPage(),
+                              //     ));
+                              // if (res is String) {
+                              //   await controller.getBarCode(res);
+                              //   if (!controller.isProductFounded.value) {
+                              //     toastInfo(
+                              //         msg: "Sorry, we can't find the product!");
+                              //   }
+                              // }
                             },
                             icon: const ImageIcon(
                               AssetImage(

@@ -5,7 +5,6 @@ import 'package:my_diet/common/values/colors.dart';
 import 'package:my_diet/common/widgets/app.dart';
 import 'package:my_diet/view/Contact/Widget/contact_list.dart';
 import 'package:my_diet/view/Contact/Contact/contactcontroller.dart';
-import 'package:kommunicate_flutter/kommunicate_flutter.dart';
 
 class ContactPage extends GetView<ContactController> {
   const ContactPage({super.key});
@@ -26,21 +25,24 @@ class ContactPage extends GetView<ContactController> {
     return Scaffold(
       appBar: _buildAppBar(),
       body: const ContactList(),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: const Color.fromARGB(255, 176, 106, 231),
-        onPressed: () async {
-          try {
-            dynamic conversationObject = {
-              'appId':
-                  '16445d8ac152e816d2e1c8e0586d0160f' // The [APP_ID](https://dashboard.kommunicate.io/settings/install) obtained from kommunicate dashboard.
-            };
-            dynamic result = await KommunicateFlutterPlugin.buildConversation(
-                conversationObject);
-            print("Conversation builder success : " + result.toString());
-          } on Exception catch (e) {
-            print("Conversation builder error occurred : " + e.toString());
-          }
-        },
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(left: 30.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Visibility(
+              child: FloatingActionButton(
+                backgroundColor: const Color.fromARGB(255, 176, 106, 231),
+                onPressed: () async {
+                  await controller.initChatBot();
+                },
+                foregroundColor: AppColors.white,
+                child: const Icon(Icons.chat),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

@@ -965,7 +965,7 @@ class DailyPage extends GetView<DailyController> {
     return DatePicker(
       DateTime.now().subtract(const Duration(days: 4)),
       width: 65.w,
-      height: 80.h,
+      height: 90.h,
       daysCount: 9,
       initialSelectedDate: DateTime.now(),
       selectionColor: AppColors.neutral,

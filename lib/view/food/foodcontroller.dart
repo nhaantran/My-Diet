@@ -85,7 +85,8 @@ class FoodController extends GetxController with SingleGetTickerProviderMixin {
     DailyController().getCalories(DateTime.now());
     await HomeController().caloriesCount();
     foodList.clear();
-    getSnackBar();
+    getSnackBar('Log food success',
+        'You can check your calories in Daily Journey sceen');
   }
 
   getResultFromShortcut() async {
@@ -146,6 +147,8 @@ class FoodController extends GetxController with SingleGetTickerProviderMixin {
         }
       } else {
         log("food = null");
+        getSnackBar(
+            'We can\' recognize your food', 'Please give us another image');
       }
     } finally {
       isLoading(false);
@@ -230,13 +233,14 @@ class FoodController extends GetxController with SingleGetTickerProviderMixin {
     DailyController().getCalories(DateTime.now());
     DailyController().getListOfDialy();
     await HomeController().caloriesCount();
-    getSnackBar();
+    getSnackBar('Log food success',
+        'You can check your calories in Daily Journey sceen');
   }
 
-  getSnackBar() {
+  getSnackBar(String noti, String reminder) {
     Get.snackbar(
-      'Log food success',
-      'You can check your calories in Daily Journey sceen',
+      noti,
+      reminder,
       snackPosition: SnackPosition.BOTTOM,
       forwardAnimationCurve: Curves.elasticInOut,
       reverseAnimationCurve: Curves.easeOut,
