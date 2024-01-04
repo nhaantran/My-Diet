@@ -11,7 +11,7 @@ import '../../../common/values/colors.dart';
 
 class AddMealPage extends GetView<AddMealController> {
   final Product? product;
-  
+
   const AddMealPage({
     this.product,
   });
@@ -77,7 +77,7 @@ class AddMealPage extends GetView<AddMealController> {
               ListTile(
                 title: const Text("Serving size:",
                     style: TextStyle(fontWeight: FontWeight.bold)),
-                trailing: Text("${product!.servingQuantity} gram"),
+                trailing: Text("${product!.servingQuantity ?? "0"} gram"),
               ),
               ListTile(
                 title: const Text("Calories:",
@@ -86,44 +86,44 @@ class AddMealPage extends GetView<AddMealController> {
                   width: 150.w,
                   alignment: Alignment.centerRight,
                   child: Text(
-                      "${product!.nutriments!.getValue(Nutrient.energyKCal, PerSize.serving)?.toStringAsFixed(1)} calories"),
+                      "${product!.nutriments!.getValue(Nutrient.energyKCal, PerSize.oneHundredGrams)?.toStringAsFixed(1) ?? "0"} calories"),
                 ),
               ),
               ListTile(
                 title: const Text("Total carbohydrates:",
                     style: TextStyle(fontWeight: FontWeight.bold)),
                 trailing: Text(
-                    "${product!.nutriments?.getValue(Nutrient.carbohydrates, PerSize.serving)?.toStringAsFixed(1)} gram carbs"),
+                    "${product!.nutriments?.getValue(Nutrient.carbohydrates, PerSize.oneHundredGrams)?.toStringAsFixed(1) ?? "0"} gram carbs"),
               ),
               ListTile(
                 title: const Text("Total proteins:",
                     style: TextStyle(fontWeight: FontWeight.bold)),
                 trailing: Text(
-                    "${product!.nutriments?.getValue(Nutrient.proteins, PerSize.serving)?.toStringAsFixed(1)} gram pros"),
+                    "${product!.nutriments?.getValue(Nutrient.proteins, PerSize.oneHundredGrams)?.toStringAsFixed(1) ?? "0"} gram pros"),
               ),
               ListTile(
                 title: const Text("Total fat:",
                     style: TextStyle(fontWeight: FontWeight.bold)),
                 trailing: Text(
-                    "${product!.nutriments?.getValue(Nutrient.fat, PerSize.serving)?.toStringAsFixed(1)} gram fat"),
+                    "${product!.nutriments?.getValue(Nutrient.fat, PerSize.oneHundredGrams)?.toStringAsFixed(1) ?? "0"} gram fat"),
               ),
               ListTile(
                 title: const Text("Total sugars:",
                     style: TextStyle(fontWeight: FontWeight.bold)),
                 trailing: Text(
-                    "${product!.nutriments?.getValue(Nutrient.sugars, PerSize.serving)?.toStringAsFixed(1)} gram sugars"),
+                    "${product!.nutriments?.getValue(Nutrient.sugars, PerSize.oneHundredGrams)?.toStringAsFixed(1) ?? "0"} gram sugars"),
               ),
               ListTile(
                 title: const Text("Total fiber:",
                     style: TextStyle(fontWeight: FontWeight.bold)),
                 trailing: Text(
-                    "${product!.nutriments?.getValue(Nutrient.fiber, PerSize.serving)?.toStringAsFixed(1)} gram fiber"),
+                    "${product!.nutriments?.getValue(Nutrient.fiber, PerSize.oneHundredGrams)?.toStringAsFixed(1) ?? "0"} gram fiber"),
               ),
               ListTile(
                 title: const Text("Total sodium:",
                     style: TextStyle(fontWeight: FontWeight.bold)),
                 trailing: Text(
-                    "${product!.nutriments?.getValue(Nutrient.sodium, PerSize.serving)?.toStringAsFixed(1)} gram sodium"),
+                    "${product!.nutriments?.getValue(Nutrient.sodium, PerSize.oneHundredGrams)?.toStringAsFixed(1) ?? "0"} gram sodium"),
               ),
             ]),
           ),

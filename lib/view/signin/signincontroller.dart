@@ -74,20 +74,18 @@ class SignInController extends GetxController {
               .collection("usersHealth")
               .doc(id)
               .set(WelcomeController.user!.toJson());
-          await db
-          .collection("usersHealth")
-          .doc(id)
-          .update({
+          await db.collection("usersHealth").doc(id).update({
             "waterIntake": num.parse(
                 (double.parse(WelcomeController.user!.weight) *
                         Formula.WATER_INTAKE)
                     .toStringAsFixed(1)),
           });
+          toastInfo(msg: "Login Success");
+          await ConfigStore.to.saveAlreadyOpen();
+          Get.offAndToNamed(AppRoutes.Application);
+        } else {
+          Get.offAndToNamed(AppRoutes.WELCOME);
         }
-
-        toastInfo(msg: "Login Success");
-        await ConfigStore.to.saveAlreadyOpen();
-        Get.offAndToNamed(AppRoutes.Application);
       }
     } catch (e) {
       toastInfo(msg: "Login Failed");

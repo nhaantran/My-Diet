@@ -22,7 +22,7 @@ class ProfilePage extends GetView<ProfileController> {
             elevation: 0.0,
             backgroundColor: AppColors.monochromatic09,
             title: const Text(
-              "??",
+              "Profile Page",
               style: TextStyle(
                   color: AppColors.brand05,
                   fontFamily: "OpenSans",
@@ -472,7 +472,8 @@ class ProfilePage extends GetView<ProfileController> {
                                 child: const Text("Ok"),
                                 onPressed: () async {
                                   await HomeController.updateGoalWeight(
-                                      int.parse(HomeController.goalWeight.value));
+                                      int.parse(
+                                          HomeController.goalWeight.value));
                                   Get.back();
                                   toastInfo(msg: "Update goal successful");
                                 }),
@@ -551,7 +552,7 @@ class ProfilePage extends GetView<ProfileController> {
                                         : "GAIN WEIGHT",
                                 //text: HomeController.height.value,
                                 style: const TextStyle(
-                                    fontSize: 18,
+                                    fontSize: 16,
                                     //color: AppColors.white,
                                     color: AppColors.brand05,
                                     fontFamily: "Gothic",
@@ -591,7 +592,7 @@ class ProfilePage extends GetView<ProfileController> {
                                     .toUpperCase(),
                                 //text: HomeController.height.value,
                                 style: const TextStyle(
-                                    fontSize: 18,
+                                    fontSize: 16,
                                     //color: AppColors.white,
                                     color: AppColors.brand05,
                                     fontFamily: "Gothic",

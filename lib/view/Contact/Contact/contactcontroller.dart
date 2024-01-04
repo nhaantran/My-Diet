@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'package:get/get.dart';
+import 'package:kommunicate_flutter/kommunicate_flutter.dart';
+import 'dart:developer';
 import 'package:my_diet/common/entities/entities.dart';
 import 'package:my_diet/view/Contact/Contact/state.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -100,6 +102,19 @@ class ContactController extends GetxController {
     for (var doc in usersbase.docs) {
       state.contactList.add(doc.data());
       print(doc.toString());
+    }
+  }
+
+  initChatBot() async {
+    try {
+      dynamic conversationObject = {
+        'appId': '16445d8ac152e816d2e1c8e0586d0160f',
+        'isSingleConversation': true
+      };
+      dynamic result =
+          await KommunicateFlutterPlugin.buildConversation(conversationObject);
+    } on Exception catch (e) {
+      log(e.toString());
     }
   }
 }

@@ -189,7 +189,7 @@ class HomePage extends GetView<HomeController> {
                           )),
                     ])),
                 SizedBox(
-                  height: 30.h,
+                  height: 28.h,
                   width: double.infinity,
                   child: ElevatedButton(
                     style: ButtonStyle(
@@ -300,7 +300,7 @@ class HomePage extends GetView<HomeController> {
                       'Update weight',
                       style: TextStyle(
                         color: const Color(0xff181F7F),
-                        fontSize: 13.w,
+                        fontSize: 12.w,
                       ),
                     ),
                   ),

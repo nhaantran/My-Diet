@@ -36,6 +36,7 @@ class ApplicationController extends GetxController {
   }
 
   getBarCode(String barCode) async {
+    // String test = '9400563448638';
     var product = await RemoteService().getFoodfromBarCode(barCode);
     if (product != null) {
       isProductFounded.value = true;

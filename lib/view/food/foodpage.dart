@@ -314,37 +314,42 @@ class FoodPage extends GetView<FoodController> {
   }
 
   Widget _tabBar() {
-    return Center(
-      child: Container(
-        height: 48.h,
-        padding: const EdgeInsets.all(10.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            TabBar(
-              isScrollable: true,
-              labelColor: AppColors.white,
-              controller: controller.tabController,
-              unselectedLabelColor: AppColors.fontDark,
-              indicator: BoxDecoration(
-                color: AppColors.brand05,
-                borderRadius: BorderRadius.circular(24),
-              ),
-              tabs: const [
-                Tab(
-                  text: "Quick shortcut",
-                ),
-                Tab(
-                  text: "Finding foods",
-                ),
-                Tab(
-                  text: "Untracked ",
+    return Wrap(
+      children: [
+        Center(
+          child: Container(
+            height: 48.h,
+            width: double.infinity,
+            padding: const EdgeInsets.all(10.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                TabBar(
+                  isScrollable: true,
+                  labelColor: AppColors.white,
+                  controller: controller.tabController,
+                  unselectedLabelColor: AppColors.fontDark,
+                  indicator: BoxDecoration(
+                    color: AppColors.brand05,
+                    borderRadius: BorderRadius.circular(24),
+                  ),
+                  tabs: const [
+                    Tab(
+                      text: "Quick shortcut",
+                    ),
+                    Tab(
+                      text: "Finding",
+                    ),
+                    Tab(
+                      text: "Untracked ",
+                    ),
+                  ],
                 ),
               ],
             ),
-          ],
-        ),
-      ),
+          ),
+        )
+      ],
     );
   }
 

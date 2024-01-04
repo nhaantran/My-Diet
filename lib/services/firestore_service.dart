@@ -380,7 +380,6 @@ class FireStoreSerivce {
   //     document.reference.delete();
   //   }
   getFood(String name) async {
-    // await addFood(name);
     var foodsRef = db.collection("foods");
     var foods = await foodsRef.where("name", isEqualTo: name).get();
     Map<String, dynamic> foodData = <String, dynamic>{};
@@ -502,12 +501,6 @@ class FireStoreSerivce {
           .doc(token)
           .collection("dailyMeals")
           .get();
-      // if (DateTime.parse(querySnapshot.docs.last.id)
-      //         .isAtSameMomentAs(DateTime.now()) ||
-      //     DateTime.parse(querySnapshot.docs.last.id).isAtSameMomentAs(
-      //         DateTime.now().subtract(const Duration(days: 1)))) {
-
-      //         }
       List<DateTime> dates = [];
       for (QueryDocumentSnapshot<Map<String, dynamic>> day
           in querySnapshot.docs) {
@@ -518,10 +511,10 @@ class FireStoreSerivce {
 
       int count = 0;
       DateTime? previousDate;
-
-      for (var date in dates) {
+      int numDays = dates.length - 1;
+      for (int i = 0; i <= dates.length - 1; i++) {
         if (previousDate != null) {
-          if (date.difference(currentDate).inDays <= 1) {
+          if (dates[i].difference(currentDate).inDays <= 1) {
             // Date is consecutive with the previous date
             count++;
           } else {
@@ -533,13 +526,36 @@ class FireStoreSerivce {
           count = 1;
         }
 
-        previousDate = date;
+        previousDate = dates[i];
 
-        if (date.isAfter(yesterday)) {
+        if (dates[i].isAfter(yesterday) && count > 0) {
           // Stop counting if the date is after yesterday
           break;
+        } else if (i == numDays) {
+          count = 0;
         }
       }
+      // for (var date in dates) {
+      //   if (previousDate != null) {
+      //     if (date.difference(currentDate).inDays <= 1) {
+      //       // Date is consecutive with the previous date
+      //       count++;
+      //     } else {
+      //       // Date is not consecutive, reset the count
+      //       count = 1;
+      //     }
+      //   } else {
+      //     // First date in the list, start counting
+      //     count = 1;
+      //   }
+
+      //   previousDate = date;
+
+      //   if (date.isAfter(yesterday) && count > 0) {
+      //     // Stop counting if the date is after yesterday
+      //     break;
+      //   }
+      // }
       return count;
     }
     return 0;
