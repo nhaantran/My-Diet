@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_ml_model_downloader/firebase_ml_model_downloader.dart';
@@ -402,6 +403,106 @@ class FireStoreSerivce {
         proteinG: 19.5,
         carbohydratesTotalG: 84.75);
     foodsCollection.add(food.toJson());
+  }
+
+  addFoodList() async {
+    var foodsCollection = db.collection("foods");
+
+    Random random = Random();
+
+    Map<String, List<double>> foodData = {
+      'Pho': [
+        random.nextDouble() * 400 + 200,
+        random.nextBool() ? 1 : 100,
+        random.nextInt(100) + 1,
+        random.nextDouble() * 99 + 1,
+        random.nextDouble() * 99 + 1
+      ],
+      'Bun bo Hue': [
+        random.nextDouble() * 400 + 200,
+        random.nextBool() ? 1 : 100,
+        random.nextInt(100) + 1,
+        random.nextDouble() * 99 + 1,
+        random.nextDouble() * 99 + 1
+      ],
+      'Goi cuon': [
+        random.nextDouble() * 400 + 200,
+        random.nextBool() ? 1 : 100,
+        random.nextInt(100) + 1,
+        random.nextDouble() * 99 + 1,
+        random.nextDouble() * 99 + 1
+      ],
+      'Bun Cha': [
+        random.nextDouble() * 400 + 200,
+        random.nextBool() ? 1 : 100,
+        random.nextInt(100) + 1,
+        random.nextDouble() * 99 + 1,
+        random.nextDouble() * 99 + 1
+      ],
+      'Com tam': [
+        random.nextDouble() * 400 + 200,
+        random.nextBool() ? 1 : 100,
+        random.nextInt(100) + 1,
+        random.nextDouble() * 99 + 1,
+        random.nextDouble() * 99 + 1
+      ],
+      'Banh xeo': [
+        random.nextDouble() * 400 + 200,
+        random.nextBool() ? 1 : 100,
+        random.nextInt(100) + 1,
+        random.nextDouble() * 99 + 1,
+        random.nextDouble() * 99 + 1
+      ],
+      'Mi Quang': [
+        random.nextDouble() * 400 + 200,
+        random.nextBool() ? 1 : 100,
+        random.nextInt(100) + 1,
+        random.nextDouble() * 99 + 1,
+        random.nextDouble() * 99 + 1
+      ],
+      'Cha ca': [
+        random.nextDouble() * 400 + 200,
+        random.nextBool() ? 1 : 100,
+        random.nextInt(100) + 1,
+        random.nextDouble() * 99 + 1,
+        random.nextDouble() * 99 + 1
+      ],
+      'Bun rieu': [
+        random.nextDouble() * 400 + 200,
+        random.nextBool() ? 1 : 100,
+        random.nextInt(100) + 1,
+        random.nextDouble() * 99 + 1,
+        random.nextDouble() * 99 + 1
+      ],
+      'Nem nuong': [
+        random.nextDouble() * 400 + 200,
+        random.nextBool() ? 1 : 100,
+        random.nextInt(100) + 1,
+        random.nextDouble() * 99 + 1,
+        random.nextDouble() * 99 + 1
+      ],
+    };
+
+    foodData.forEach((key, value) {
+      Food food = Food(
+        name: key,
+        calories: value[0].toDouble(),
+        servingSizeG: value[1].toDouble(),
+        fatTotalG: value[2].toDouble(),
+        proteinG: value[3].toDouble(),
+        carbohydratesTotalG: value[4].toDouble(),
+      );
+      foodsCollection.add(food.toJson());
+    });
+
+    // var food = Food(
+    //     name: ,
+    //     calories: ,
+    //     servingSizeG: ,
+    //     fatTotalG: ,
+    //     proteinG: ,
+    //     carbohydratesTotalG: );
+    //foodsCollection.add(food.toJson());
   }
 
   Future<List<UntrackedExercise>?> getListOfUntrackedExercise(

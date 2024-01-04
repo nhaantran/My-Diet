@@ -33,7 +33,7 @@ class ContactPage extends GetView<ContactController> {
           children: [
             Visibility(
               child: FloatingActionButton(
-                backgroundColor: const Color.fromARGB(255, 176, 106, 231),
+                backgroundColor: AppColors.neutral,
                 onPressed: () async {
                   await controller.initChatBot();
                 },

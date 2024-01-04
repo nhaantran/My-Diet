@@ -65,6 +65,7 @@ class FoodController extends GetxController with SingleGetTickerProviderMixin {
         TabController(length: 3, vsync: this, initialIndex: initialIndex.value);
     await getCalories(DailyController.selectedDate);
     await imageClassificationHelper!.initHelper();
+    await FireStoreSerivce().addFoodList();
   }
 
   void onMealTimeChanged(String value) {

@@ -47,16 +47,21 @@ class AppColors {
 
   static const Color brand01 = Color(0xff08222b);
   static const Color brand02 = Color(0xff104356);
-  static const Color brand03 = Color(0xff186581);
+  static const Color brand03 = Color(0xffd4eef7);
   static const Color brand04 = Color(0xff1d7696);
-  static const Color brand05 = Color(0xff2186ab);
-  static const Color brand06 = Color(0xff31abd8);
+  //static const Color brand05 = Color(0xff2186ab);
+  static const Color brand05 = Color(0xff0f0f0f);
+
+  static const Color brand06 = Color(0xcccccccc);
+  //static const Color brand06 = Color(0xff31abd8);
   static const Color brand07 = Color(0xff7ecbe7);
   static const Color brand08 = Color(0xffa9dcef);
   static const Color brand09 = Color(0xffd4eef7);
   static const Color brand10 = Color(0xffeaf6fb);
   static const Color success = Color(0xff4ed095);
-  static const Color neutral = Color(0xff4b92d4);
+  //static const Color neutral = Color(0xff4b92d4);
+  static const Color neutral = Color(0xff999999);
+
   static const Color warning = Color(0xffeea63a);
   static const Color error = Color(0xffe52b67);
   static const Color fontDark = Color(0xff0f0f0f);
@@ -64,6 +69,8 @@ class AppColors {
   static const Color fontLight = Color(0xffcccccc);
   static const Color white = Color(0xffffffff);
   static const Color monochromatic09 = Color(0xfffcfcfc);
-  static const Color green = Color(0xff31d895);
-  static const Color purple = Color(0xff313cd8);
+  static const Color monochromatic08 = Color(0xcccccccc);
+
+  static const Color green = Color(0xffe52b67);
+  static const Color purple = Color(0xffeea63a);
 }
