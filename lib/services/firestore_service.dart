@@ -392,6 +392,26 @@ class FireStoreSerivce {
     }
   }
 
+  getAllFood() async {
+    var foods = await db.collection("foods").get();
+    Map<String, dynamic> foodData = <String, dynamic>{};
+    for (var doc in foods.docs) {
+      foodData.addAll(doc.data());
+    }
+    var foodList = <Food>[];
+    if (foods.docs.isNotEmpty) {
+      for (var food in foods.docs) {
+        foodList.add(Food.fromJson(food.data()));
+      }
+    }
+    // if (foodData.isNotEmpty) {
+    //   foodData.forEach((key, value) {
+    //     foodList.add(Food.fromJson(foodData));
+    //   });
+    // }
+    return foodList;
+  }
+
   addFood(String name) async {
     var foodsCollection = db.collection("foods");
 
@@ -486,11 +506,11 @@ class FireStoreSerivce {
     foodData.forEach((key, value) {
       Food food = Food(
         name: key,
-        calories: value[0].toDouble(),
-        servingSizeG: value[1].toDouble(),
-        fatTotalG: value[2].toDouble(),
-        proteinG: value[3].toDouble(),
-        carbohydratesTotalG: value[4].toDouble(),
+        calories: double.parse(value[0].toStringAsFixed(0)),
+        servingSizeG: double.parse(value[1].toStringAsFixed(2)),
+        fatTotalG: double.parse(value[2].toStringAsFixed(2)),
+        proteinG: double.parse(value[3].toStringAsFixed(2)),
+        carbohydratesTotalG: double.parse(value[4].toStringAsFixed(2)),
       );
       foodsCollection.add(food.toJson());
     });

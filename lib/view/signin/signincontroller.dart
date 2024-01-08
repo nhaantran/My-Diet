@@ -80,12 +80,13 @@ class SignInController extends GetxController {
                         Formula.WATER_INTAKE)
                     .toStringAsFixed(1)),
           });
-          toastInfo(msg: "Login Success");
+         
+        } else {
+          // Get.offAndToNamed(AppRoutes.WELCOME);
+        }
+         toastInfo(msg: "Login Success");
           await ConfigStore.to.saveAlreadyOpen();
           Get.offAndToNamed(AppRoutes.Application);
-        } else {
-          Get.offAndToNamed(AppRoutes.WELCOME);
-        }
       }
     } catch (e) {
       toastInfo(msg: "Login Failed");

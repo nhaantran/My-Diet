@@ -16,6 +16,7 @@ import '../../common/routes/names.dart';
 import '../../common/values/colors.dart';
 import '../exercise/widget/ExerciseTile.dart';
 import 'FoodTile.dart';
+import 'IconToggle.dart';
 
 class FoodPage extends GetView<FoodController> {
   FoodPage(this.mealTime, {super.key});
@@ -87,7 +88,7 @@ class FoodPage extends GetView<FoodController> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              _tabBar(),
+              // _tabBar(),
               _tabBarView(context),
               Expanded(
                   child: Container(
@@ -101,76 +102,95 @@ class FoodPage extends GetView<FoodController> {
                     itemCount: FoodController.foodList.length,
                     itemBuilder: (context, index) {
                       //var string = controller.foodList[index].name.toString();
-                      return Dismissible(
-                        key: ValueKey<Food>(FoodController.foodList[index]),
-                        background: Container(
-                            alignment: Alignment.centerRight,
-                            padding: const EdgeInsets.only(right: 20.0),
-                            color: Colors.red,
-                            child: const Icon(
-                              Icons.delete,
-                              color: AppColors.white,
-                            )),
-                        onDismissed: (DismissDirection direction) {
-                          FoodController.foodList.removeAt(index);
-                          controller.getTotalCalories();
-                        },
-                        child: ListTile(
-                          isThreeLine: true,
-                          title: Text(
-                            FoodController.foodList[index].name.toUpperCase(),
-                            style: const TextStyle(
-                                fontFamily: "OpenSans",
-                                color: AppColors.brand04,
-                                fontSize: 30),
-                          ),
-                          subtitle: RichText(
-                            text: TextSpan(
-                                style: const TextStyle(fontFamily: "OpenSans"),
-                                children: <TextSpan>[
-                                  TextSpan(
-                                      text:
-                                          "${FoodController.foodList[index].calories.toString()} calories\n",
-                                      style: const TextStyle(
+                      return Obx(() => 
+                          // Dismissible(
+                          //     key: ValueKey<Food>(FoodController.foodList[index]),
+
+                          //     background: Container(
+                          //         alignment: Alignment.centerRight,
+                          //         padding: const EdgeInsets.only(right: 20.0),
+                          //         color: Colors.red,
+                          //         child: const Icon(
+                          //           Icons.delete,
+                          //           color: AppColors.white,
+                          //         )),
+                          //     onDismissed: (DismissDirection direction) {
+                          //       //addFood.add(index);
+                          //       FoodController.foodList.removeAt(index);
+                          //       controller.getTotalCalories();
+                          //     },
+                          Container(
+                              decoration: BoxDecoration(
+                                color: controller.selectedTile[index]
+                                    ? AppColors.brand07
+                                    : null,
+                              ),
+                              child: Obx(
+                                () => ListTile(
+                                  onTap: () {
+                                    controller.onListTileTap(index);
+                                  },
+                                  tileColor: controller.selectedTile[index]
+                                      ? AppColors.brand07
+                                      : null,
+                                  isThreeLine: true,
+                                  title: Text(
+                                    FoodController.foodList[index].name
+                                        .toUpperCase(),
+                                    style: const TextStyle(
+                                        fontFamily: "OpenSans",
                                         color: AppColors.brand05,
-                                        fontWeight: FontWeight.w600,
-                                      )),
-                                  TextSpan(
-                                      text:
-                                          "${FoodController.foodList[index].servingSizeG.toString()} gram",
-                                      style: const TextStyle(
-                                        color: AppColors.brand05,
-                                        fontWeight: FontWeight.w500,
-                                      )),
-                                ]),
-                          ),
-                          trailing: Wrap(children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Text(
-                                  "${FoodController.foodList[index].carbohydratesTotalG.toStringAsFixed(1)} carbs",
-                                  style: const TextStyle(
-                                      color: AppColors.fontMid,
-                                      fontFamily: "OpenSans"),
+                                        fontSize: 30),
+                                  ),
+                                  subtitle: RichText(
+                                    text: TextSpan(
+                                        style: const TextStyle(
+                                            fontFamily: "OpenSans"),
+                                        children: <TextSpan>[
+                                          TextSpan(
+                                              text:
+                                                  "${FoodController.foodList[index].calories.toString()} calories\n",
+                                              style: const TextStyle(
+                                                color: AppColors.brand05,
+                                                fontWeight: FontWeight.w600,
+                                              )),
+                                          TextSpan(
+                                              text:
+                                                  "${FoodController.foodList[index].servingSizeG.toString()} gram",
+                                              style: const TextStyle(
+                                                color: AppColors.brand05,
+                                                fontWeight: FontWeight.w500,
+                                              )),
+                                        ]),
+                                  ),
+                                  trailing: Wrap(children: [
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
+                                      children: [
+                                        Text(
+                                          "${FoodController.foodList[index].carbohydratesTotalG.toStringAsFixed(1)} carbs",
+                                          style: const TextStyle(
+                                              color: AppColors.fontMid,
+                                              fontFamily: "OpenSans"),
+                                        ),
+                                        Text(
+                                          "${FoodController.foodList[index].proteinG.toStringAsFixed(1)} pros",
+                                          style: const TextStyle(
+                                              color: AppColors.fontMid,
+                                              fontFamily: "OpenSans"),
+                                        ),
+                                        Text(
+                                          "${FoodController.foodList[index].fatTotalG.toStringAsFixed(1)} fats",
+                                          style: const TextStyle(
+                                              color: AppColors.fontMid,
+                                              fontFamily: "OpenSans"),
+                                        ),
+                                      ],
+                                    ),
+                                  ]),
                                 ),
-                                Text(
-                                  "${FoodController.foodList[index].proteinG.toStringAsFixed(1)} pros",
-                                  style: const TextStyle(
-                                      color: AppColors.fontMid,
-                                      fontFamily: "OpenSans"),
-                                ),
-                                Text(
-                                  "${FoodController.foodList[index].fatTotalG.toStringAsFixed(1)} fats",
-                                  style: const TextStyle(
-                                      color: AppColors.fontMid,
-                                      fontFamily: "OpenSans"),
-                                ),
-                              ],
-                            ),
-                          ]),
-                        ),
-                      );
+                              )));
                     },
                     separatorBuilder: (BuildContext context, int index) {
                       return const Divider(
@@ -195,121 +215,122 @@ class FoodPage extends GetView<FoodController> {
                   // );
                 }),
               )),
-              Obx(() {
-                return Container(
-                  height: 150.h,
-                  padding: EdgeInsets.all(10.0.h),
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          CircularPercentIndicator(
-                            animation: true,
-                            //backgroundColor: AppColors.fontLight,
-                            percent: controller.percent.value > 1
-                                ? 1
-                                : (controller.percent.value < 0.0
-                                    ? 0
-                                    : controller.percent.value),
-                            progressColor: controller.percent.value > 1
-                                ? AppColors.error
-                                : (controller.percent.value > 0.75
-                                    ? AppColors.warning
-                                    : AppColors.brand05),
-                            animateFromLastPercent: true,
-                            lineWidth: 10.0,
-                            radius: 45.0.w,
-                            center: RichText(
-                                textAlign: TextAlign.center,
-                                text: TextSpan(
-                                    style: const TextStyle(
-                                        fontSize: 13,
-                                        fontFamily: "OpenSans",
-                                        color: AppColors.brand05,
-                                        fontWeight: FontWeight.w600),
-                                    children: <TextSpan>[
-                                      TextSpan(
-                                        text:
-                                            " ${controller.remainingCalories.value.toStringAsFixed(1)} kcal\n",
-                                      ),
-                                      const TextSpan(
-                                        text: "remain",
-                                      ),
-                                    ])),
-                          ),
-                          SizedBox(
-                            width: 10.w,
-                          ),
-                          // RichText(
-                          //     text: TextSpan(
-                          //         style: const TextStyle(
-                          //             fontFamily: "OpenSans",
-                          //             fontSize: 18,
-                          //             color: AppColors.brand05,
-                          //             fontWeight: FontWeight.w600),
-                          //         children: <TextSpan>[
-                          //       const TextSpan(
-                          //         text: "TOTAL: ",
-                          //       ),
-                          //       TextSpan(
-                          //         text:
-                          //             "${controller.totalCalories.toStringAsFixed(1)} calories",
-                          //       ),
-                          //     ])),
-                          //Text("TOTAL: ", style: const TextStyle(fontSize: 30, fontFamily: "OpenSan"),),
+              // Obx(() {
+              //   return
+              Container(
+                height: 70.h,
+                padding: EdgeInsets.all(10.0.h),
+                child: Column(
+                  children: [
+                    // Row(
+                    //   children: [
+                    //     CircularPercentIndicator(
+                    //       animation: true,
+                    //       //backgroundColor: AppColors.fontLight,
+                    //       percent: controller.percent.value > 1
+                    //           ? 1
+                    //           : (controller.percent.value < 0.0
+                    //               ? 0
+                    //               : controller.percent.value),
+                    //       progressColor: controller.percent.value > 1
+                    //           ? AppColors.error
+                    //           : (controller.percent.value > 0.75
+                    //               ? AppColors.warning
+                    //               : AppColors.brand05),
+                    //       animateFromLastPercent: true,
+                    //       lineWidth: 10.0,
+                    //       radius: 45.0.w,
+                    //       center: RichText(
+                    //           textAlign: TextAlign.center,
+                    //           text: TextSpan(
+                    //               style: const TextStyle(
+                    //                   fontSize: 13,
+                    //                   fontFamily: "OpenSans",
+                    //                   color: AppColors.brand05,
+                    //                   fontWeight: FontWeight.w600),
+                    //               children: <TextSpan>[
+                    //                 TextSpan(
+                    //                   text:
+                    //                       " ${controller.remainingCalories.value.toStringAsFixed(1)} kcal\n",
+                    //                 ),
+                    //                 const TextSpan(
+                    //                   text: "remain",
+                    //                 ),
+                    //               ])),
+                    //     ),
+                    //     SizedBox(
+                    //       width: 10.w,
+                    //     ),
+                    //     // RichText(
+                    //     //     text: TextSpan(
+                    //     //         style: const TextStyle(
+                    //     //             fontFamily: "OpenSans",
+                    //     //             fontSize: 18,
+                    //     //             color: AppColors.brand05,
+                    //     //             fontWeight: FontWeight.w600),
+                    //     //         children: <TextSpan>[
+                    //     //       const TextSpan(
+                    //     //         text: "TOTAL: ",
+                    //     //       ),
+                    //     //       TextSpan(
+                    //     //         text:
+                    //     //             "${controller.totalCalories.toStringAsFixed(1)} calories",
+                    //     //       ),
+                    //     //     ])),
+                    //     //Text("TOTAL: ", style: const TextStyle(fontSize: 30, fontFamily: "OpenSan"),),
 
-                          const Expanded(
-                            child: SizedBox(),
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Text(
-                                "${controller.totalCarbs.toStringAsFixed(1)} carbs",
-                                style: const TextStyle(
-                                    color: AppColors.fontMid,
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily: "OpenSans"),
-                              ),
-                              Text(
-                                "${controller.totalPros.toStringAsFixed(1)} pros",
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: AppColors.fontMid,
-                                    fontFamily: "OpenSans"),
-                              ),
-                              Text(
-                                "${controller.totalFats.toStringAsFixed(1)} fats",
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: AppColors.fontMid,
-                                    fontFamily: "OpenSans"),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      Expanded(
-                        child: SizedBox(),
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          MaterialButton(
-                              color: AppColors.brand05,
-                              onPressed: () async {
-                                await controller.logfood();
-                              },
-                              child: const Text(
-                                "Log food",
-                                style: TextStyle(color: AppColors.white),
-                              )),
-                        ],
-                      ),
-                    ],
-                  ),
-                );
-              }),
+                    //     const Expanded(
+                    //       child: SizedBox(),
+                    //     ),
+                    //     Column(
+                    //       crossAxisAlignment: CrossAxisAlignment.end,
+                    //       children: [
+                    //         Text(
+                    //           "${controller.totalCarbs.toStringAsFixed(1)} carbs",
+                    //           style: const TextStyle(
+                    //               color: AppColors.fontMid,
+                    //               fontWeight: FontWeight.bold,
+                    //               fontFamily: "OpenSans"),
+                    //         ),
+                    //         Text(
+                    //           "${controller.totalPros.toStringAsFixed(1)} pros",
+                    //           style: const TextStyle(
+                    //               fontWeight: FontWeight.bold,
+                    //               color: AppColors.fontMid,
+                    //               fontFamily: "OpenSans"),
+                    //         ),
+                    //         Text(
+                    //           "${controller.totalFats.toStringAsFixed(1)} fats",
+                    //           style: const TextStyle(
+                    //               fontWeight: FontWeight.bold,
+                    //               color: AppColors.fontMid,
+                    //               fontFamily: "OpenSans"),
+                    //         ),
+                    //       ],
+                    //     ),
+                    //   ],
+                    // ),
+                    // Expanded(
+                    //   child: SizedBox(),
+                    // ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        MaterialButton(
+                            color: AppColors.brand05,
+                            onPressed: () async {
+                              await controller.logfood();
+                            },
+                            child: const Text(
+                              "Log food",
+                              style: TextStyle(color: AppColors.white),
+                            )),
+                      ],
+                    ),
+                  ],
+                ),
+              )
+              // }),
             ]));
   }
 
@@ -782,49 +803,88 @@ class FoodPage extends GetView<FoodController> {
   Widget _tabBarView(BuildContext context) {
     return Container(
       height: 150.h,
-      child: TabBarView(controller: controller.tabController, children: [
-        _quickShortcut(context),
-        Container(
-          height: 310.h,
-          decoration: const BoxDecoration(
-              color: AppColors.brand06,
-              image: DecorationImage(
-                  fit: BoxFit.contain,
-                  image: AssetImage("assets/images/add_food_background.png"))),
-          child: Center(
-              child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                margin: EdgeInsets.only(bottom: 5.0),
-                height: 48.h,
-                width: 48.w,
-                decoration: BoxDecoration(
-                    color: AppColors.white,
-                    borderRadius: BorderRadius.circular(100)),
-                child: IconButton(
-                  onPressed: () {
-                    showSearch(
-                        context: context, delegate: CustomSearchDelegate());
-                  },
-                  iconSize: 36.0,
-                  color: AppColors.brand05,
-                  icon: const Icon(Icons.manage_search_outlined),
-                ),
+      child: Container(
+        height: 310.h,
+        decoration: const BoxDecoration(
+            color: AppColors.brand06,
+            image: DecorationImage(
+                fit: BoxFit.contain,
+                image: AssetImage("assets/images/add_food_background.png"))),
+        child: Center(
+            child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              margin: EdgeInsets.only(bottom: 5.0),
+              height: 48.h,
+              width: 48.w,
+              decoration: BoxDecoration(
+                  color: AppColors.white,
+                  borderRadius: BorderRadius.circular(100)),
+              child: IconButton(
+                onPressed: () {
+                  showSearch(
+                      context: context, delegate: CustomSearchDelegate());
+                },
+                iconSize: 36.0,
+                color: AppColors.brand05,
+                icon: const Icon(Icons.manage_search_outlined),
               ),
-              const Text(
-                "Search food",
-                style: TextStyle(
-                    color: AppColors.white,
-                    fontFamily: "Gothic",
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold),
-              ),
-            ],
-          )),
-        ),
-        _unTracked(context),
-      ]),
+            ),
+            const Text(
+              "Search food",
+              style: TextStyle(
+                  color: AppColors.white,
+                  fontFamily: "Gothic",
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold),
+            ),
+          ],
+        )),
+      ),
+      // TabBarView(controller: controller.tabController, children: [
+      //   _quickShortcut(context),
+      //   Container(
+      //     height: 310.h,
+      //     decoration: const BoxDecoration(
+      //         color: AppColors.brand06,
+      //         image: DecorationImage(
+      //             fit: BoxFit.contain,
+      //             image: AssetImage("assets/images/add_food_background.png"))),
+      //     child: Center(
+      //         child: Column(
+      //       mainAxisAlignment: MainAxisAlignment.center,
+      //       children: [
+      //         Container(
+      //           margin: EdgeInsets.only(bottom: 5.0),
+      //           height: 48.h,
+      //           width: 48.w,
+      //           decoration: BoxDecoration(
+      //               color: AppColors.white,
+      //               borderRadius: BorderRadius.circular(100)),
+      //           child: IconButton(
+      //             onPressed: () {
+      //               showSearch(
+      //                   context: context, delegate: CustomSearchDelegate());
+      //             },
+      //             iconSize: 36.0,
+      //             color: AppColors.brand05,
+      //             icon: const Icon(Icons.manage_search_outlined),
+      //           ),
+      //         ),
+      //         const Text(
+      //           "Search food",
+      //           style: TextStyle(
+      //               color: AppColors.white,
+      //               fontFamily: "Gothic",
+      //               fontSize: 14,
+      //               fontWeight: FontWeight.bold),
+      //         ),
+      //       ],
+      //     )),
+      //   ),
+      //   _unTracked(context),
+      // ]),
     );
   }
 }

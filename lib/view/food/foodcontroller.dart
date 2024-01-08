@@ -52,20 +52,35 @@ class FoodController extends GetxController with SingleGetTickerProviderMixin {
   img.Image? image;
   Map<String, double>? classification;
   var percent = 0.0.obs;
+  var selectedTile = <bool>[].obs;
+
   // FoodController() {
   //   selectedMealTime = mealTime.first.obs;
   // }
+  // RxBool isActive = true.obs;
+
+  // void toggleActive() {
+  //   isActive.toggle();
+  // }
+
   static var initialIndex = 0.obs;
   @override
   void onInit() async {
     super.onInit();
+    foodList.value = await FireStoreSerivce().getAllFood();
+    await getCalories(DailyController.selectedDate);
+
     imageClassificationHelper = ImageClassificationHelper();
     //getData();
     tabController =
         TabController(length: 3, vsync: this, initialIndex: initialIndex.value);
-    await getCalories(DailyController.selectedDate);
     await imageClassificationHelper!.initHelper();
-    await FireStoreSerivce().addFoodList();
+    selectedTile.value = List.generate(foodList.length, (i) => false);
+    //await FireStoreSerivce().addFoodList();
+  }
+
+  void onListTileTap(int index) {
+    selectedTile[index] = !selectedTile[index];
   }
 
   void onMealTimeChanged(String value) {
@@ -73,7 +88,7 @@ class FoodController extends GetxController with SingleGetTickerProviderMixin {
   }
 
   static addFood(Food addedFood) {
-    foodList.add(addedFood);
+    foodList.insert(0, addedFood);
   }
 
   void onUnitChanged(String value) {
@@ -81,11 +96,22 @@ class FoodController extends GetxController with SingleGetTickerProviderMixin {
   }
 
   logfood() async {
-    await FireStoreSerivce().addMeal(selectedMealTime.value, foodList);
+    List<int> trueIndices = [];
+    for (int i = 0; i < selectedTile.length; i++) {
+      if (selectedTile[i] == true) {
+        trueIndices.add(i);
+      }
+    }
+    List<Food> addedFood = [];
+    for (var index in trueIndices) {
+      addedFood.add(foodList[index]);
+      foodList.removeAt(index);
+    }
+    selectedTile.value = List.generate(foodList.length, (i) => false);
+    await FireStoreSerivce().addMeal(selectedMealTime.value, addedFood);
     DailyController().getListOfDialy();
     DailyController().getCalories(DateTime.now());
     await HomeController().caloriesCount();
-    foodList.clear();
     getSnackBar('Log food success',
         'You can check your calories in Daily Journey sceen');
   }
